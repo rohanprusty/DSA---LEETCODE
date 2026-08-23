@@ -1,23 +1,16 @@
 class Solution {
 public:
     int minOperations(int n) {
-        vector<int>pow;
-        for(int i = 0; (1 << i) <= 2 * n; i++){
-            pow.push_back(1 << i);
-        }
-
-        int ans = 0;
-        while(n > 0){
-            int closest = pow[0];
-
-            for(int p : pow){
-                if(abs(n - p) < abs(n - closest))
-                closest = p;
+        int res = 0, count = 0;
+        while(n){
+            if((n & 3) == 3){
+                ++n; ++res;
             }
-
-            n = abs(n - closest);
-            ans++; 
+            else{
+                res += n & 1;
+                n >>= 1;
+            }
         }
-        return ans;
+        return res;
     }
 };
